@@ -129,7 +129,7 @@ export type AssetResponseDto = {
     /** This property was deprecated in v1.104.0 */
     isReadOnly?: boolean;
     isTrashed: boolean;
-    libraryId: string;
+    libraryId?: string | null;
     livePhotoVideoId?: string | null;
     localDateTime: string;
     originalFileName: string;
@@ -306,7 +306,6 @@ export type CreateAssetDto = {
     isFavorite?: boolean;
     isOffline?: boolean;
     isVisible?: boolean;
-    libraryId?: string;
     livePhotoData?: Blob;
     sidecarData?: Blob;
 };
@@ -436,7 +435,6 @@ export type LibraryResponseDto = {
     name: string;
     ownerId: string;
     refreshedAt: string | null;
-    "type": LibraryType;
     updatedAt: string;
 };
 export type CreateLibraryDto = {
@@ -444,7 +442,6 @@ export type CreateLibraryDto = {
     importPaths?: string[];
     name?: string;
     ownerId: string;
-    "type": LibraryType;
 };
 export type UpdateLibraryDto = {
     exclusionPatterns?: string[];
@@ -1733,15 +1730,11 @@ export function sendJobCommand({ id, jobCommandDto }: {
         body: jobCommandDto
     })));
 }
-export function getAllLibraries({ $type }: {
-    $type?: LibraryType;
-}, opts?: Oazapfts.RequestOpts) {
+export function getAllLibraries(opts?: Oazapfts.RequestOpts) {
     return oazapfts.ok(oazapfts.fetchJson<{
         status: 200;
         data: LibraryResponseDto[];
-    }>(`/library${QS.query(QS.explode({
-        "type": $type
-    }))}`, {
+    }>("/library", {
         ...opts
     }));
 }
@@ -2890,10 +2883,6 @@ export enum JobCommand {
     Resume = "resume",
     Empty = "empty",
     ClearFailed = "clear-failed"
-}
-export enum LibraryType {
-    Upload = "UPLOAD",
-    External = "EXTERNAL"
 }
 export enum Type2 {
     OnThisDay = "on_this_day"

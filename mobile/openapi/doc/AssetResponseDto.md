@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 **isOffline** | **bool** |  | 
 **isReadOnly** | **bool** | This property was deprecated in v1.104.0 | [optional] 
 **isTrashed** | **bool** |  | 
-**libraryId** | **String** |  | 
+**libraryId** | **String** |  | [optional] 
 **livePhotoVideoId** | **String** |  | [optional] 
 **localDateTime** | [**DateTime**](DateTime.md) |  | 
 **originalFileName** | **String** |  | 

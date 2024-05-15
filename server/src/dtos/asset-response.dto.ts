@@ -26,7 +26,7 @@ export class AssetResponseDto extends SanitizedAssetResponseDto {
   deviceId!: string;
   ownerId!: string;
   owner?: UserResponseDto;
-  libraryId!: string;
+  libraryId?: string | null;
   originalPath!: string;
   originalFileName!: string;
   fileCreatedAt!: Date;
