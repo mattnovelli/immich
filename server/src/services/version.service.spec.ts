@@ -14,10 +14,10 @@ import { newServerInfoRepositoryMock } from 'test/repositories/system-info.repos
 import { newSystemMetadataRepositoryMock } from 'test/repositories/system-metadata.repository.mock';
 import { Mocked } from 'vitest';
 
-const mockRelease = (version = '100.0.0') => ({
+const mockRelease = (version: string) => ({
   id: 1,
   url: 'https://api.github.com/repos/owner/repo/releases/1',
-  tag_name: 'v' + version,
+  tag_name: version,
   name: 'Release 1000',
   created_at: DateTime.utc().toISO(),
   published_at: DateTime.utc().toISO(),
@@ -78,7 +78,7 @@ describe(VersionService.name, () => {
     });
 
     it('should run if it has been > 60 minutes', async () => {
-      serverMock.getGitHubRelease.mockResolvedValue(mockRelease());
+      serverMock.getGitHubRelease.mockResolvedValue(mockRelease('v100.0.0'));
       systemMock.get.mockResolvedValue({
         checkedAt: DateTime.utc().minus({ minutes: 65 }).toISO(),
         releaseVersion: '1.0.0',
